@@ -7,9 +7,10 @@ class Group
 {
 	private:
 		int quantity;
-
+		int reserved_tick;
+		int duration;
 	public:
-		Group(int quantity);
+		Group(int quantity, int reserved_tick, int duration);
 	
 }
 
