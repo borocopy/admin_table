@@ -1,5 +1,5 @@
-#ifndef __ADMIN_H__
-#define __ADMIN_H__
+#ifndef ADMIN_H__
+#define ADMIN_H__
 #include <vector>
 #include <queue>
 #include "Table.h"
@@ -22,6 +22,6 @@ class Admin
 		~Admin();
 
 		void assign_table(Group* group);
-}
+};
 
 #endif

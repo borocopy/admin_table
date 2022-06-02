@@ -15,6 +15,6 @@ class Table
 		bool is_occupied();
 
 
-}
+};
 
 #endif

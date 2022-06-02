@@ -12,6 +12,6 @@ class Group
 	public:
 		Group(int quantity, int reserved_tick, int duration);
 	
-}
+};
 
 #endif
