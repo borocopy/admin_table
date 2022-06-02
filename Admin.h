@@ -1,27 +1,27 @@
-#ifndef ADMIN_H__
-#define ADMIN_H__
-#include <vector>
+#ifndef ADMIN_H_
+#define ADMIN_H_
 #include <queue>
-#include "Table.h"
+#include <vector>
+
+#include "Base.h"
 #include "Group.h"
+#include "Table.h"
 
-using namespace std;
+class Admin: public Base {
+ private:
+  std::vector<Table*> tables;
+  std::queue<Group*> live_queue;
+  std::vector<Group*> reservations;
 
-class Admin
-{
-	private:
-		vector<Table*>	tables;
-		queue<Group*>		live_queue;
-		vector<Group*>	reservations;
+  void enqueue_group(Group* group);
+  void dequeue_group();
+  void add_reservation(Group* group);
 
-		void enqueue_group(Group* group);
-		void dequeue_group();
-		void add_reservation(Group* group);
-	public:
-		Admin(vector<int> tables_desc);
-		~Admin();
+ public:
+  explicit Admin(Base* app) : Base(app) {}
+  ~Admin();
 
-		void assign_table(Group* group);
+  void assign_table(Group* group);
 };
 
-#endif
+#endif  // ADMIN_H_

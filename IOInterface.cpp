@@ -1,27 +1,34 @@
-#include "UserInterface.h"
+#include "IOInterface.h"
 
-#include <sstream>
 #include <string>
 #include <vector>
 
-vector<std::string> UserInterface::split_string(string raw_line) {
-  std::istringstream iss(raw_line);
-  std::string buf;
-  std::vector<std::string> args;
-
-  while (iss >> buf) {
-    args.push_back(buf);
-  }
-
-  return args;
+IOInterface::IOInterface(Base* app) : Base(app) {
+  add_connection(get_signal_emitter(), get_signal_handler(), app);
 }
 
-void UserInterface::get_initial_state() {
+void IOInterface::read_line() {
   std::string line;
-  std::getline(cin, line);
+  std::getline(std::cin, line);
 
-  std::vector<string> args = split_string(line);
-  for (string table_capacity : args) {
-    int capacity = std::stoi(table_capacity);
+  emit(get_signal_emitter(), Base::Command::PROCESS_USER_INPUT, line);
+}
+
+void IOInterface::signal_fn(Base::Command cid, std::string& payload) {}
+void IOInterface::handler_fn(Base::Command cid, std::string payload) {
+  switch (cid) {
+    case Base::Command::GET_USER_INPUT:
+      read_line();
+      break;
+    default:
+      break;
   }
+}
+
+Base::Signal IOInterface::get_signal_emitter() {
+	return SIG_M(IOInterface::signal_fn);
+}
+
+Base::Handler IOInterface::get_signal_handler() {
+	return HDR_M(IOInterface::handler_fn);
 }

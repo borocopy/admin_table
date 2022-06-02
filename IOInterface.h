@@ -4,16 +4,20 @@
 #include <string>
 #include <vector>
 
-#include "Node.h"
+#include "Base.h"
 
-class UserInterface : public Node {
+class IOInterface : public Base {
  private:
-  std::vector<std::string> split_string(std::string raw_line);
+  void read_line();
 
  public:
-  explicit UserInterface(Node *app) : Node(app) {}
-  void get_initial_state();
-  void parse_user_command();
+  explicit IOInterface(Base *app);
+
+  void signal_fn(Base::Command cid, std::string &payload);
+  void handler_fn(Base::Command cid, std::string payload);
+
+  Signal get_signal_emitter();
+  Handler get_signal_handler();
 };
 
 #endif  // IOINTERFACE_H_
