@@ -3,22 +3,27 @@
 #include <string>
 
 #include "Base.h"
+#include "Table.h"
+
+class Table;
 
 class Group : public Base {
  private:
-	int uid;
   int quantity;
   int reserved_tick;
   int time_left;
+	Table* occupied_table;
 
  public:
-  Group(Base* parent, int uid, int quantity, int reserved_tick, int duration);
+  Group(Base* parent, int quantity, int reserved_tick, int time_left);
 
   int get_quantity();
   int get_reserved_tick();
-	int get_uid();
 
 	void decrease_time_span();
+
+	void occupy_table(Table* table);
+	Table* get_occupied_table();
 
   void signal_fn(Base::Command cid, std::string& payload);
   void handler_fn(Base::Command cid, std::string payload);

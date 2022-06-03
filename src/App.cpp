@@ -37,16 +37,19 @@ void App::process_user_command(std::string raw_line) {
   }
 
   std::vector<std::string> args = helpers::split_string(raw_line);
+  if (args.size() == 0) return;
+
   std::string instruction = args[0];
 
   if (instruction.compare("ADD_TABLE") == 0) {
     emit(get_signal_emitter(), Base::Command::ADD_TABLE, args[1]);
   }
 
-	if (instruction.compare("ADD_GROUP") == 0) {
-		args.erase(args.begin());
-		emit(get_signal_emitter(), Base::Command::ADD_GROUP, helpers::join_strings(args));
-	}
+  if (instruction.compare("ADD_GROUP") == 0) {
+    args.erase(args.begin());
+    emit(get_signal_emitter(), Base::Command::ADD_GROUP,
+         helpers::join_strings(args));
+  }
 }
 
 void App::signal_fn(Base::Command cid, std::string& payload) {}
@@ -70,8 +73,10 @@ void App::exec_app() {
   // Reading user commands
   while (true) {
     emit(get_signal_emitter(), Base::Command::GET_USER_INPUT, "");
-		emit(get_signal_emitter(), Base::Command::NEXT_TICK, std::to_string(tick));
-		tick++;
+		std::cout << "Tick: " << tick << std::endl;
+    emit(get_signal_emitter(), Base::Command::NEXT_TICK, std::to_string(tick));
+
+    tick++;
   }
 }
 

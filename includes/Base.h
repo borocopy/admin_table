@@ -8,13 +8,18 @@
 
 class Base {
  private:
+  unsigned int uid;
   Base* parent;
   std::vector<Base*> children;
+
+  static unsigned int get_next_uid();
+  static unsigned int _next_uid;
 
   struct SignalStruct;
   std::vector<Base::SignalStruct*> connections;
 
  public:
+
   explicit Base(Base* parent);
   virtual ~Base();
 
@@ -25,24 +30,27 @@ class Base {
     PROCESS_USER_INPUT,
     RESERVE_TABLE,
     ADD_TABLE,
+    GROUP_LEAVE,
     FREE_TABLE,
     OCCUPY_TABLE,
     ENQUE_GROUP,
     ADD_GROUP,
     KILL_APP,
     PRINT_STATE,
-		NEXT_TICK
+    NEXT_TICK
   };
   typedef void (Base::*Handler)(Base::Command, std::string);
   typedef void (Base::*Signal)(Base::Command, std::string&);
 
   Base* get_parent();
   std::vector<Base*> get_children();
+	unsigned int get_uid();
 
   void set_parent(Base* new_parent);
 
   void add_child(Base* child);
   void remove_child(Base* child);
+	Base* get_child_by_uid(unsigned int target_uid);
 
   virtual Base::Signal get_signal_emitter() = 0;
   virtual Base::Handler get_signal_handler() = 0;

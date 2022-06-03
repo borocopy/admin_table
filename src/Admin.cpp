@@ -1,6 +1,7 @@
 #include "../includes/Admin.h"
 
 #include <algorithm>
+// DELETE IOSTREAM
 #include <iostream>
 
 #include "../lib/helpers.h"
@@ -16,17 +17,14 @@ void Admin::add_table(int capacity) {
   tables.push_back(table);
 }
 
-void Admin::add_group(int quantity, int reserved_tick, int duration) {
-  Group* group = new Group(this, get_new_group_id(), quantity, reserved_tick, duration);
+void Admin::add_group(int quantity, int reserved_tick, int time_left) {
+  Group* group = new Group(this, quantity, reserved_tick, time_left);
+
   if (group->get_reserved_tick() == 0) {
     groups_livequeue.push(group);
   } else {
     groups_reserved.push_back(group);
   }
-}
-
-int Admin::get_new_group_id() {
-	return group_uid++;
 }
 
 std::vector<Table*> Admin::get_free_tables() {
@@ -49,6 +47,9 @@ bool Admin::occupy_table(Group* group) {
     if (table->get_free_places() >= group->get_quantity()) {
       table->occupy(group);
       groups_occupied.push_back(group);
+			add_connection(get_signal_emitter(), group->get_signal_handler(), group);
+			/* std::cout << "Group with UID: " << group->get_uid() << " has occupied a table." << std::endl; */
+
       return true;
     }
   }
@@ -56,13 +57,21 @@ bool Admin::occupy_table(Group* group) {
   return false;
 }
 
+void Admin::remove_group(unsigned int group_uid) {
+  for (int i = 0; i < groups_occupied.size(); i++) {
+    if (group_uid == groups_occupied[i]->get_uid()) {
+      groups_occupied.erase(groups_occupied.begin() + i);
+			/* std::cout << "Group with UID: " << group_uid << " has left the table." << std::endl; */
+			break;
+    }
+  }
+}
+
 void Admin::move_group_to_livequeue(Group* group) {
-  std::vector<Group*>::iterator group_iter =
-      std::find(groups_reserved.begin(), groups_reserved.end(), group);
-  if (group_iter != groups_reserved.cend()) {
-    int pos = std::distance(groups_reserved.begin(), group_iter);
-    std::cout << "Element found on index " << pos << std::endl;
-    groups_reserved.erase(groups_reserved.begin() + pos);
+  for (int i = 0; i < groups_reserved.size(); i++) {
+    if (group->get_uid() == groups_reserved[i]->get_uid()) {
+      groups_reserved.erase(groups_reserved.begin() + i);
+    }
   }
 
   groups_livequeue.push(group);
@@ -83,10 +92,12 @@ void Admin::process_next_tick(int current_tick) {
   }
 
   // Then process livequeue
-  Group* first_in_queue = groups_livequeue.front();
-  // If first in queue can be placed then place it and pop it from queue
-  if (occupy_table(first_in_queue)) {
-    groups_livequeue.pop();
+  if (groups_livequeue.size() != 0) {
+    Group* first_in_queue = groups_livequeue.front();
+    // If first in queue can be placed then place it and pop it from queue
+    if (occupy_table(first_in_queue)) {
+      groups_livequeue.pop();
+    }
   }
 }
 
@@ -101,14 +112,20 @@ void Admin::handler_fn(Base::Command cid, std::string payload) {
       std::vector<std::string> args = helpers::split_string(payload);
       int quantity = std::stoi(args[0]);
       int reserved_tick = std::stoi(args[1]);
-      int duration = std::stoi(args[2]);
+      int time_left = std::stoi(args[2]);
 
-      add_group(quantity, reserved_tick, duration);
+      add_group(quantity, reserved_tick, time_left);
+      break;
+    }
+		case Base::Command::FREE_TABLE: {
+      unsigned int group_uid = stoi(payload);
+			remove_group(group_uid);
       break;
     }
     case Base::Command::NEXT_TICK: {
       // Payload = current tick
       process_next_tick(stoi(payload));
+			emit(get_signal_emitter(), Base::Command::NEXT_TICK, "");
       break;
     }
     default:

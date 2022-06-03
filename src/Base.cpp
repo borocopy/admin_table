@@ -1,5 +1,7 @@
 #include "../includes/Base.h"
 
+#include <iostream>
+unsigned int Base::_next_uid = 0;
 struct Base::SignalStruct {
   Signal signal_fn;
   Handler handler_fn;
@@ -11,10 +13,12 @@ struct Base::SignalStruct {
 
 Base::Base(Base* new_parent) {
   parent = new_parent;
-
+  uid = get_next_uid();
   if (parent != nullptr) {
     this->parent->add_child(this);
   }
+
+  std::cout << "UID: " << uid << std::endl;
 }
 
 Base::~Base() {
@@ -25,6 +29,8 @@ Base::~Base() {
   }
 }
 
+unsigned int Base::get_next_uid() { return _next_uid++; }
+unsigned int Base::get_uid() { return uid; }
 Base* Base::get_parent() { return this->parent; }
 
 std::vector<Base*> Base::get_children() { return this->children; }
@@ -49,13 +55,22 @@ void Base::remove_child(Base* child) {
   }
 }
 
+Base* Base::get_child_by_uid(unsigned int target_uid) {
+  for (Base* child : children) {
+    if (child->get_uid() == target_uid) return child;
+  }
+
+  return nullptr;
+}
+
 void Base::add_connection(Signal signal_fn, Handler handler_fn, Base* target) {
   struct SignalStruct* connection =
       new SignalStruct(signal_fn, handler_fn, target);
   connections.push_back(connection);
 }
 
-void Base::emit(Base::Signal signal_fn, Base::Command cid, std::string payload) {
+void Base::emit(Base::Signal signal_fn, Base::Command cid,
+                std::string payload) {
   (this->*signal_fn)(cid, payload);
 
   for (Base::SignalStruct* current : connections) {

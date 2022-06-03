@@ -17,9 +17,10 @@ class Admin : public Base {
   std::vector<Group*> groups_occupied;
 
   void add_table(int capacity);
-  void add_group(int quantity, int reserved_tick, int duration);
+  void add_group(int quantity, int reserved_tick, int time_left);
   std::vector<Table*> get_free_tables();
   bool occupy_table(Group* group);
+	void remove_group(unsigned int group_uid);
   void process_next_tick(int current_tick);
   void move_group_to_livequeue(Group* group);
   int get_new_group_id();
