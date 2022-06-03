@@ -19,7 +19,6 @@ class Base {
   std::vector<Base::SignalStruct*> connections;
 
  public:
-
   explicit Base(Base* parent);
   virtual ~Base();
 
@@ -36,21 +35,24 @@ class Base {
     ENQUE_GROUP,
     ADD_GROUP,
     KILL_APP,
-    PRINT_STATE,
-    NEXT_TICK
+    PRINT,
+		PRINT_PAUSE,
+    NEXT_TICK,
+    MAKE_STATE_REPORT,
+    STATE_REPORT_DONE
   };
   typedef void (Base::*Handler)(Base::Command, std::string);
   typedef void (Base::*Signal)(Base::Command, std::string&);
 
   Base* get_parent();
   std::vector<Base*> get_children();
-	unsigned int get_uid();
+  unsigned int get_uid();
 
   void set_parent(Base* new_parent);
 
   void add_child(Base* child);
   void remove_child(Base* child);
-	Base* get_child_by_uid(unsigned int target_uid);
+  Base* get_child_by_uid(unsigned int target_uid);
 
   virtual Base::Signal get_signal_emitter() = 0;
   virtual Base::Handler get_signal_handler() = 0;

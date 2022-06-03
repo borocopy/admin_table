@@ -23,6 +23,15 @@ void IOInterface::handler_fn(Base::Command cid, std::string payload) {
     case Base::Command::GET_INIT_STATE:
       read_line(Base::Command::SET_INIT_STATE);
       break;
+    case Base::Command::PRINT_PAUSE: {
+      std::cout << payload << std::endl;
+      read_line(Base::Command::PROCESS_USER_INPUT);
+      break;
+    }
+    case Base::Command::PRINT: {
+      std::cout << payload << std::endl;
+      break;
+    }
     default:
       break;
   }

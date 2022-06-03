@@ -1,6 +1,5 @@
 #include "../includes/App.h"
 
-#include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -32,7 +31,7 @@ void App::process_user_command(std::string raw_line) {
   }
 
   if (raw_line.compare(display_command) == 0) {
-    emit(get_signal_emitter(), Base::Command::PRINT_STATE, "");
+    emit(get_signal_emitter(), Base::Command::MAKE_STATE_REPORT, "");
     return;
   }
 
@@ -40,10 +39,6 @@ void App::process_user_command(std::string raw_line) {
   if (args.size() == 0) return;
 
   std::string instruction = args[0];
-
-  if (instruction.compare("ADD_TABLE") == 0) {
-    emit(get_signal_emitter(), Base::Command::ADD_TABLE, args[1]);
-  }
 
   if (instruction.compare("ADD_GROUP") == 0) {
     args.erase(args.begin());
@@ -61,6 +56,10 @@ void App::handler_fn(Base::Command cid, std::string payload) {
     case Base::Command::SET_INIT_STATE:
       set_initial_state(payload);
       break;
+    case Base::Command::STATE_REPORT_DONE: {
+      emit(get_signal_emitter(), Base::Command::PRINT_PAUSE, payload);
+      break;
+    }
     default:
       break;
   }
@@ -73,9 +72,9 @@ void App::exec_app() {
   // Reading user commands
   while (true) {
     emit(get_signal_emitter(), Base::Command::GET_USER_INPUT, "");
-		std::cout << "Tick: " << tick << std::endl;
+    emit(get_signal_emitter(), Base::Command::PRINT,
+         "Tick: " + std::to_string(tick));
     emit(get_signal_emitter(), Base::Command::NEXT_TICK, std::to_string(tick));
-
     tick++;
   }
 }

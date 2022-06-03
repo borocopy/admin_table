@@ -1,7 +1,7 @@
 #include "../includes/Base.h"
 
-#include <iostream>
 unsigned int Base::_next_uid = 0;
+
 struct Base::SignalStruct {
   Signal signal_fn;
   Handler handler_fn;
@@ -17,8 +17,6 @@ Base::Base(Base* new_parent) {
   if (parent != nullptr) {
     this->parent->add_child(this);
   }
-
-  std::cout << "UID: " << uid << std::endl;
 }
 
 Base::~Base() {

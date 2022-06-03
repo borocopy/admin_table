@@ -1,6 +1,6 @@
 #ifndef INCLUDES_ADMIN_H_
 #define INCLUDES_ADMIN_H_
-#include <queue>
+#include <deque>
 #include <string>
 #include <vector>
 
@@ -13,7 +13,7 @@ class Admin : public Base {
   int group_uid;
   std::vector<Table*> tables;
   std::vector<Group*> groups_reserved;
-  std::queue<Group*> groups_livequeue;
+  std::deque<Group*> groups_livequeue;
   std::vector<Group*> groups_occupied;
 
   void add_table(int capacity);
@@ -25,8 +25,10 @@ class Admin : public Base {
   void move_group_to_livequeue(Group* group);
   int get_new_group_id();
 
+	void make_state_report();
+
  public:
-  explicit Admin(Base* app) : Base(app), group_uid(0) {}
+	explicit Admin(Base* parent);
   ~Admin();
 
   void signal_fn(Base::Command cid, std::string& payload);

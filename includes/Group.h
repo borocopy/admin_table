@@ -12,18 +12,18 @@ class Group : public Base {
   int quantity;
   int reserved_tick;
   int time_left;
-	Table* occupied_table;
+  Table* occupied_table;
 
  public:
   Group(Base* parent, int quantity, int reserved_tick, int time_left);
 
   int get_quantity();
   int get_reserved_tick();
+  int get_time_left();
+  void decrease_time_span();
 
-	void decrease_time_span();
-
-	void occupy_table(Table* table);
-	Table* get_occupied_table();
+  void occupy_table(Table* table);
+  Table* get_occupied_table();
 
   void signal_fn(Base::Command cid, std::string& payload);
   void handler_fn(Base::Command cid, std::string payload);

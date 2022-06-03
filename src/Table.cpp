@@ -1,4 +1,5 @@
 #include "../includes/Table.h"
+
 Table::Table(Base* parent, int capacity)
     : Base(parent), capacity(capacity), occupied_places(0) {
   add_connection(get_signal_emitter(), parent->get_signal_handler(), parent);
@@ -20,6 +21,7 @@ void Table::leave(Group* group) {
 }
 
 int Table::get_free_places() { return capacity - occupied_places; }
+int Table::get_capacity() { return capacity; }
 
 void Table::signal_fn(Base::Command cid, std::string& payload) {}
 void Table::handler_fn(Base::Command cid, std::string payload) {

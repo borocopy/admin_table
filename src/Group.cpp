@@ -1,29 +1,18 @@
 #include "../includes/Group.h"
 
-#include <iostream>
-
 Group::Group(Base* parent, int quantity, int reserved_tick, int time_left)
     : Base(parent),
       quantity(quantity),
       reserved_tick(reserved_tick),
       time_left(time_left),
-      occupied_table(nullptr) {
-  std::cout << "Added group with UID " << get_uid() << " of " << quantity
-            << " people"
-            << ", that reserved table on tick " << reserved_tick << " and"
-            << " they want to occupy it for " << time_left << " ticks."
-            << std::endl;
-}
+      occupied_table(nullptr) {}
 
 int Group::get_quantity() { return quantity; }
 int Group::get_reserved_tick() { return reserved_tick; }
-
+int Group::get_time_left() { return time_left; }
 void Group::decrease_time_span() {
-  std::cout << "next tick" << std::endl;
   time_left--;
   if (time_left == 0) {
-    /* std::cout << "Group with UID " << get_uid() << " has expired their time.
-     * (Group)" << std::endl; */
     emit(get_signal_emitter(), Base::Command::GROUP_LEAVE,
          std::to_string(get_uid()));
   }

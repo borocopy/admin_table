@@ -21,6 +21,7 @@ class Table : public Base {
 
 	void occupy(Group* group);
 	void leave(Group* group);
+	int get_capacity();
 	int get_free_places();
 
   Signal get_signal_emitter();
