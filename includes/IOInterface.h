@@ -1,5 +1,5 @@
-#ifndef IOINTERFACE_H_
-#define IOINTERFACE_H_
+#ifndef INCLUDES_IOINTERFACE_H_
+#define INCLUDES_IOINTERFACE_H_
 #include <iostream>
 #include <string>
 #include <vector>
@@ -20,4 +20,4 @@ class IOInterface : public Base {
   Handler get_signal_handler();
 };
 
-#endif  // IOINTERFACE_H_
+#endif  // INCLUDES_IOINTERFACE_H_

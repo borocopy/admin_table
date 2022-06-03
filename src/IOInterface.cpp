@@ -1,4 +1,4 @@
-#include "IOInterface.h"
+#include "../includes/IOInterface.h"
 
 #include <string>
 #include <vector>
@@ -20,18 +20,18 @@ void IOInterface::handler_fn(Base::Command cid, std::string payload) {
     case Base::Command::GET_USER_INPUT:
       read_line(Base::Command::PROCESS_USER_INPUT);
       break;
-		case Base::Command::GET_INIT_STATE:
-			read_line(Base::Command::SET_INIT_STATE);
-			break;
+    case Base::Command::GET_INIT_STATE:
+      read_line(Base::Command::SET_INIT_STATE);
+      break;
     default:
       break;
   }
 }
 
 Base::Signal IOInterface::get_signal_emitter() {
-	return SIG_M(IOInterface::signal_fn);
+  return SIG_M(IOInterface::signal_fn);
 }
 
 Base::Handler IOInterface::get_signal_handler() {
-	return HDR_M(IOInterface::handler_fn);
+  return HDR_M(IOInterface::handler_fn);
 }

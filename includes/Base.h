@@ -1,5 +1,5 @@
-#ifndef BASE_H_
-#define BASE_H_
+#ifndef INCLUDES_BASE_H_
+#define INCLUDES_BASE_H_
 #include <string>
 #include <vector>
 
@@ -14,16 +14,13 @@ class Base {
   struct SignalStruct;
   std::vector<Base::SignalStruct*> connections;
 
-  void add_child(Base* child);
-  void remove_child(Base* child);
-
  public:
   explicit Base(Base* parent);
   virtual ~Base();
 
   enum Command {
-		GET_INIT_STATE,
-		SET_INIT_STATE,
+    GET_INIT_STATE,
+    SET_INIT_STATE,
     GET_USER_INPUT,
     PROCESS_USER_INPUT,
     RESERVE_TABLE,
@@ -31,8 +28,10 @@ class Base {
     FREE_TABLE,
     OCCUPY_TABLE,
     ENQUE_GROUP,
-		KILL_APP,
-		PRINT_STATE,
+    ADD_GROUP,
+    KILL_APP,
+    PRINT_STATE,
+		NEXT_TICK
   };
   typedef void (Base::*Handler)(Base::Command, std::string);
   typedef void (Base::*Signal)(Base::Command, std::string&);
@@ -41,6 +40,9 @@ class Base {
   std::vector<Base*> get_children();
 
   void set_parent(Base* new_parent);
+
+  void add_child(Base* child);
+  void remove_child(Base* child);
 
   virtual Base::Signal get_signal_emitter() = 0;
   virtual Base::Handler get_signal_handler() = 0;
@@ -51,4 +53,4 @@ class Base {
    */
 };
 
-#endif  // BASE_H_
+#endif  // INCLUDES_BASE_H_

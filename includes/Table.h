@@ -1,19 +1,23 @@
-#ifndef TABLE_H_
-#define TABLE_H_
+#ifndef INCLUDES_TABLE_H_
+#define INCLUDES_TABLE_H_
 
 #include <string>
 
 #include "Base.h"
+#include "Group.h"
 
 class Table : public Base {
  private:
   int capacity;
-
+	int occupied_places;
  public:
   Table(Base* parent, int capacity);
 
   void signal_fn(Base::Command cid, std::string& payload);
   void handler_fn(Base::Command cid, std::string payload);
+
+	void occupy(Group* group);
+	int get_free_places();
 
   Signal get_signal_emitter();
   Handler get_signal_handler();
@@ -21,4 +25,4 @@ class Table : public Base {
   /* bool is_occupied(); */
 };
 
-#endif  // TABLE_H_
+#endif  // INCLUDES_TABLE_H_
