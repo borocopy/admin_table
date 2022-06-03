@@ -40,7 +40,7 @@ void App::process_user_command(std::string raw_line) {
 
   std::string instruction = args[0];
 
-  if (instruction.compare("ADD_GROUP") == 0) {
+  if (instruction.compare("Reservation") == 0) {
     args.erase(args.begin());
     emit(get_signal_emitter(), Base::Command::ADD_GROUP,
          helpers::join_strings(args));
