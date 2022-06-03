@@ -16,7 +16,7 @@ Base::Base(Base* new_parent) {
     this->parent->add_child(this);
   }
 }
-/*
+
 Base::~Base() {
   if (parent != nullptr) parent->remove_child(this);
 
@@ -24,7 +24,6 @@ Base::~Base() {
     delete child;
   }
 }
-*/
 
 Base* Base::get_parent() { return this->parent; }
 

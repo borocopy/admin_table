@@ -19,16 +19,20 @@ class Base {
 
  public:
   explicit Base(Base* parent);
-  //~Base();
+  virtual ~Base();
 
   enum Command {
+		GET_INIT_STATE,
+		SET_INIT_STATE,
     GET_USER_INPUT,
     PROCESS_USER_INPUT,
     RESERVE_TABLE,
     ADD_TABLE,
     FREE_TABLE,
     OCCUPY_TABLE,
-    ENQUE_GROUP
+    ENQUE_GROUP,
+		KILL_APP,
+		PRINT_STATE,
   };
   typedef void (Base::*Handler)(Base::Command, std::string);
   typedef void (Base::*Signal)(Base::Command, std::string&);

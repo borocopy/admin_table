@@ -8,7 +8,7 @@
 
 class IOInterface : public Base {
  private:
-  void read_line();
+  void read_line(Base::Command cid);
 
  public:
   explicit IOInterface(Base *app);

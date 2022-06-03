@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-/* #include "Admin.h" */
+#include "Admin.h"
 #include "Base.h"
 #include "IOInterface.h"
 
@@ -12,9 +12,10 @@ class App : public Base {
  private:
   int tick;
   IOInterface* io;
+	Admin* admin;
   void set_initial_state(std::string args);
   std::vector<std::string> split_string(std::string raw_line);
-
+	void process_user_command(std::string raw_line);
  public:
   App();
 
