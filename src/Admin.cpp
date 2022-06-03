@@ -143,12 +143,14 @@ void Admin::process_next_tick(int current_tick) {
   }
 
   // Then process livequeue
-  if (groups_livequeue.size() != 0) {
+  while (groups_livequeue.size() != 0) {
     Group* first_in_queue = groups_livequeue.front();
     // If first in queue can be placed then place it and pop it from queue
     if (occupy_table(first_in_queue)) {
       groups_livequeue.pop_front();
-    }
+    } else {
+			break;
+		}
   }
 }
 
