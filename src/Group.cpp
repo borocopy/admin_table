@@ -15,6 +15,7 @@ void Group::decrease_time_span() {
   if (time_left == 0) {
     emit(get_signal_emitter(), Base::Command::GROUP_LEAVE,
          std::to_string(get_uid()));
+		delete this;
   }
 }
 

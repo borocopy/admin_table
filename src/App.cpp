@@ -44,6 +44,8 @@ void App::process_user_command(std::string raw_line) {
     args.erase(args.begin());
     emit(get_signal_emitter(), Base::Command::ADD_GROUP,
          helpers::join_strings(args));
+  } else {
+    emit(get_signal_emitter(), Base::Command::PRINT_PAUSE, "Unknown command");
   }
 }
 
@@ -71,9 +73,9 @@ void App::exec_app() {
 
   // Reading user commands
   while (true) {
-    emit(get_signal_emitter(), Base::Command::GET_USER_INPUT, "");
     emit(get_signal_emitter(), Base::Command::PRINT,
          "Tick: " + std::to_string(tick));
+    emit(get_signal_emitter(), Base::Command::GET_USER_INPUT, "");
     emit(get_signal_emitter(), Base::Command::NEXT_TICK, std::to_string(tick));
     tick++;
   }

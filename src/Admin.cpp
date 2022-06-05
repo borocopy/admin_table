@@ -142,16 +142,30 @@ void Admin::process_next_tick(int current_tick) {
     }
   }
 
-  // Then process livequeue
-  while (groups_livequeue.size() != 0) {
-    Group* first_in_queue = groups_livequeue.front();
-    // If first in queue can be placed then place it and pop it from queue
-    if (occupy_table(first_in_queue)) {
-      groups_livequeue.pop_front();
-    } else {
-			break;
-		}
+  for (Group* group : groups_livequeue) {
+    if (occupy_table(group)) {
+      for (int i = 0; i < groups_livequeue.size(); i++) {
+        if (group->get_uid() == groups_livequeue[i]->get_uid()) {
+          groups_livequeue.erase(groups_livequeue.begin() + i);
+          break;
+        }
+      }
+    }
   }
+
+  // Then process livequeue
+  // @TODO: if group has more people than there are seats?
+  /*
+while (groups_livequeue.size() != 0) {
+Group* first_in_queue = groups_livequeue.front();
+// If first in queue can be placed then place it and pop it from queue
+if (occupy_table(first_in_queue)) {
+groups_livequeue.pop_front();
+} else {
+break;
+}
+}
+  */
 }
 
 void Admin::signal_fn(Base::Command cid, std::string& payload) {}
@@ -180,9 +194,10 @@ void Admin::handler_fn(Base::Command cid, std::string payload) {
       break;
     }
     case Base::Command::NEXT_TICK: {
+      // Groups leave first
+      emit(get_signal_emitter(), Base::Command::NEXT_TICK, "");
       // Payload = current tick
       process_next_tick(stoi(payload));
-      emit(get_signal_emitter(), Base::Command::NEXT_TICK, "");
       break;
     }
     default:

@@ -14,8 +14,6 @@ void Table::occupy(Group* group) {
 void Table::leave(Group* group) {
   remove_child(group);
   occupied_places -= group->get_quantity();
-  /* std::cout << "Group with UID " << group->get_uid() << " has left the table.
-   * (Table)" << std::endl; */
   emit(get_signal_emitter(), Base::Command::FREE_TABLE,
        std::to_string(group->get_uid()));
 }
