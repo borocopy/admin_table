@@ -69,6 +69,7 @@ void App::handler_fn(Base::Command cid, std::string payload) {
 
 void App::exec_app() {
   // Get initial tables state
+  emit(get_signal_emitter(), Base::Command::PRINT, "Input table sizes:");
   emit(get_signal_emitter(), Base::Command::GET_INIT_STATE, "");
 
   // Reading user commands

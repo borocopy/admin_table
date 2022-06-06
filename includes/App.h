@@ -1,6 +1,5 @@
 #ifndef INCLUDES_APP_H_
 #define INCLUDES_APP_H_
-#include <iostream>
 #include <string>
 #include <vector>
 
