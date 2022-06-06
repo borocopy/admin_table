@@ -44,7 +44,7 @@ void Admin::make_state_report() {
     report << std::endl << "Livequeue:";
     for (Group* group : groups_livequeue) {
       report << std::endl
-             << tab << "Group with of " << group->get_quantity()
+             << tab << "Group of " << group->get_quantity()
              << " is waiting for a table";
     }
   }
@@ -53,7 +53,7 @@ void Admin::make_state_report() {
     report << std::endl << "Reserved:";
     for (Group* group : groups_reserved) {
       report << std::endl
-             << tab << "Group with quantity of " << group->get_quantity()
+             << tab << "Group of " << group->get_quantity()
              << " has reserved a table on tick " << group->get_reserved_tick();
     }
   }
@@ -62,7 +62,7 @@ void Admin::make_state_report() {
     report << std::endl << "Occupied:";
     for (Group* group : groups_occupied) {
       report << std::endl
-             << tab << "Group with quantity of " << group->get_quantity()
+             << tab << "Group of " << group->get_quantity()
              << " will occupy a table for "
              << group->get_time_left() << " more ticks";
     }

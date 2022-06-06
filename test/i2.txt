@@ -2,7 +2,7 @@
 Reservation 2 0 3
 Reservation 3 0 2
 Reservation 4 0 1
-Reservation 2 0 2
+Reservation 2 15 2
 Reservation 2 9 3
 Reservation 3 8 2
 
