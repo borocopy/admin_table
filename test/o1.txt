@@ -1,17 +1,18 @@
 System status on tick 2
 Tables:
     Table with capacity of 1 and 1 unoccupied seats
-    Table with capacity of 2 and 0 unoccupied seats
+    Table with capacity of 2 and 2 unoccupied seats
     Table with capacity of 3 and 3 unoccupied seats
-Occupied:
-    Group of 2 will occupy a table for 1 more ticks
+Reserved:
+    Group of 2 has reserved a table on tick 3
 System status on tick 4
 Tables:
     Table with capacity of 1 and 1 unoccupied seats
-    Table with capacity of 2 and 2 unoccupied seats
+    Table with capacity of 2 and 0 unoccupied seats
     Table with capacity of 3 and 0 unoccupied seats
 Livequeue:
     Group of 5 is waiting for a table
 Occupied:
+    Group of 2 will occupy a table for 6 more ticks
     Group of 3 will occupy a table for 2 more ticks
 System shutdown
