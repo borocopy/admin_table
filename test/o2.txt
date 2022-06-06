@@ -1,0 +1,8 @@
+System status on tick 9
+Tables:
+    Table with capacity of 2 and 0 unoccupied seats
+    Table with capacity of 3 and 3 unoccupied seats
+    Table with capacity of 4 and 4 unoccupied seats
+Occupied:
+    Group with quantity of 2 will occupy a table for 2 more ticks
+System shutdown

@@ -1,10 +1,10 @@
 System status on tick 2
 Tables:
     Table with capacity of 1 and 1 unoccupied seats
-    Table with capacity of 2 and 2 unoccupied seats
+    Table with capacity of 2 and 0 unoccupied seats
     Table with capacity of 3 and 3 unoccupied seats
-Reserved:
-    Group with quantity of 2 has reserved a table on tick 2
+Occupied:
+    Group with quantity of 2 will occupy a table for 1 more ticks
 System status on tick 4
 Tables:
     Table with capacity of 1 and 1 unoccupied seats
