@@ -73,12 +73,12 @@ void Admin::make_state_report() {
 std::vector<Table*> Admin::get_free_tables() {
   std::vector<Table*> filtered;
   for (Table* table : tables) {
-    if (table->get_free_places() != 0) {
+    if (table->is_vacant()) {
       filtered.push_back(table);
     }
   }
   std::sort(filtered.begin(), filtered.end(), [](Table* a, Table* b) {
-    return a->get_free_places() < b->get_free_places();
+    return a->get_capacity() < b->get_capacity();
   });
   return filtered;
 }

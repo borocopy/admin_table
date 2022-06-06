@@ -20,6 +20,7 @@ void Table::leave(Group* group) {
 
 int Table::get_free_places() { return capacity - occupied_places; }
 int Table::get_capacity() { return capacity; }
+bool Table::is_vacant() { return get_children().size() == 0 ? true : false; }
 
 void Table::signal_fn(Base::Command cid, std::string& payload) {}
 void Table::handler_fn(Base::Command cid, std::string payload) {

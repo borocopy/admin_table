@@ -23,6 +23,7 @@ class Table : public Base {
 	void leave(Group* group);
 	int get_capacity();
 	int get_free_places();
+	bool is_vacant();
 
   Signal get_signal_emitter();
   Handler get_signal_handler();
