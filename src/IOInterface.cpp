@@ -29,7 +29,7 @@ void IOInterface::handler_fn(Base::Command cid, std::string payload) {
       break;
     }
     case Base::Command::PRINT: {
-      std::cout << payload << std::endl;
+      std::cout << payload;
       break;
     }
     default:

@@ -26,6 +26,7 @@ void App::process_user_command(std::string raw_line) {
   std::string kill_command = "Turn off the system";
 
   if (raw_line.compare(kill_command) == 0) {
+    emit(get_signal_emitter(), Base::Command::PRINT, "System shutdown");
     exit(0);
     return;
   }
@@ -59,6 +60,8 @@ void App::handler_fn(Base::Command cid, std::string payload) {
       set_initial_state(payload);
       break;
     case Base::Command::STATE_REPORT_DONE: {
+      emit(get_signal_emitter(), Base::Command::PRINT,
+           "System status on tick " + std::to_string(tick) + "\n");
       emit(get_signal_emitter(), Base::Command::PRINT_PAUSE, payload);
       break;
     }
@@ -69,15 +72,12 @@ void App::handler_fn(Base::Command cid, std::string payload) {
 
 void App::exec_app() {
   // Get initial tables state
-  emit(get_signal_emitter(), Base::Command::PRINT, "Input table sizes:");
   emit(get_signal_emitter(), Base::Command::GET_INIT_STATE, "");
 
   // Reading user commands
   while (true) {
-    emit(get_signal_emitter(), Base::Command::PRINT,
-         "Tick: " + std::to_string(tick));
-    emit(get_signal_emitter(), Base::Command::GET_USER_INPUT, "");
     emit(get_signal_emitter(), Base::Command::NEXT_TICK, std::to_string(tick));
+    emit(get_signal_emitter(), Base::Command::GET_USER_INPUT, "");
     tick++;
   }
 }
