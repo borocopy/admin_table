@@ -16,7 +16,7 @@ std::string helpers::join_strings(std::vector<std::string> args) {
   std::string query = "";
   for (int i = 0; i < args.size(); i++) {
     query += args[i];
-    if (i != args.size()) query += " ";
+    if (i+1 != args.size()) query += " ";
   }
 
   return query;

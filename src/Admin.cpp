@@ -4,16 +4,12 @@
 
 #include "../lib/helpers.h"
 
-Admin::Admin(Base* app) : Base(app), group_uid(0) {
+Admin::Admin(Base* app) : Base(app)  {
   add_connection(get_signal_emitter(), app->get_signal_handler(), app);
 }
 
-Admin::~Admin() {
-  // @TODO: add other dynamic variables cleanups
-  for (Base* table : tables) {
-    delete table;
-  }
-}
+Admin::~Admin() {}
+
 void Admin::add_table(int capacity) {
   Table* table = new Table(this, capacity);
   tables.push_back(table);
@@ -119,8 +115,6 @@ void Admin::move_group_to_livequeue(Group* group) {
 }
 
 void Admin::process_next_tick(int current_tick) {
-  // Run on each tick
-  // Check reservations first
   for (Group* group : groups_reserved) {
     if (group->get_reserved_tick() == current_tick) {
       bool success = occupy_table(group);
@@ -176,9 +170,7 @@ void Admin::handler_fn(Base::Command cid, std::string payload) {
       break;
     }
     case Base::Command::NEXT_TICK: {
-      // Payload = current tick
-      process_next_tick(stoi(payload));
-      // Groups leave first?
+      process_next_tick(std::stoi(payload));
       emit(get_signal_emitter(), Base::Command::NEXT_TICK, "");
       break;
     }

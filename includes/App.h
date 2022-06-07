@@ -18,7 +18,7 @@ class App : public Base {
 
  public:
   App();
-
+	~App();
   void exec_app();
   void signal_fn(Base::Command cid, std::string& payload);
   void handler_fn(Base::Command cid, std::string payload);

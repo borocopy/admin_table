@@ -15,6 +15,7 @@ class Table : public Base {
 
  public:
   Table(Base* parent, int capacity);
+	~Table();
 
   void signal_fn(Base::Command cid, std::string& payload);
   void handler_fn(Base::Command cid, std::string payload);
@@ -27,8 +28,6 @@ class Table : public Base {
 
   Signal get_signal_emitter();
   Handler get_signal_handler();
-  /* int get_capacity(); */
-  /* bool is_occupied(); */
 };
 
 #endif  // INCLUDES_TABLE_H_

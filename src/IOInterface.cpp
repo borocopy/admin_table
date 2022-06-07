@@ -7,6 +7,8 @@ IOInterface::IOInterface(Base* app) : Base(app) {
   add_connection(get_signal_emitter(), app->get_signal_handler(), app);
 }
 
+IOInterface::~IOInterface() {}
+
 void IOInterface::read_line(Base::Command cid) {
   std::string line;
   std::getline(std::cin, line);

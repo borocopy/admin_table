@@ -5,6 +5,8 @@ Table::Table(Base* parent, int capacity)
   add_connection(get_signal_emitter(), parent->get_signal_handler(), parent);
 }
 
+Table::~Table() {}
+
 void Table::occupy(Group* group) {
   add_child(group);
   group->occupy_table(this);

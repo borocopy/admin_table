@@ -14,6 +14,8 @@ App::App() : Base(nullptr) {
   add_connection(get_signal_emitter(), admin->get_signal_handler(), admin);
 }
 
+App::~App() {}
+
 void App::set_initial_state(std::string line) {
   std::vector<std::string> args = helpers::split_string(line);
   for (std::string table_capacity : args) {

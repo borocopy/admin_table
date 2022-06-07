@@ -10,7 +10,6 @@
 
 class Admin : public Base {
  private:
-  int group_uid;
   std::vector<Table*> tables;
   std::vector<Group*> groups_reserved;
   std::deque<Group*> groups_livequeue;
@@ -23,7 +22,6 @@ class Admin : public Base {
 	void remove_group(unsigned int group_uid);
   void process_next_tick(int current_tick);
   void move_group_to_livequeue(Group* group);
-  int get_new_group_id();
 
 	void make_state_report();
 
@@ -36,8 +34,6 @@ class Admin : public Base {
 
   Signal get_signal_emitter();
   Handler get_signal_handler();
-
-  /* void assign_table(Group* group); */
 };
 
 #endif  // INCLUDES_ADMIN_H_

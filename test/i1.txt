@@ -1,7 +1,0 @@
-1 2 3
-Reservation 2 3 8
-Display the system status
-Reservation 3 0 4
-Reservation 5 0 3
-Display the system status
-Turn off the system

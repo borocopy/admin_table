@@ -16,7 +16,7 @@ class Group : public Base {
 
  public:
   Group(Base* parent, int quantity, int reserved_tick, int time_left);
-
+	~Group() {}
   int get_quantity();
   int get_reserved_tick();
   int get_time_left();

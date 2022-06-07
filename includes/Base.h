@@ -27,16 +27,12 @@ class Base {
     SET_INIT_STATE,
     GET_USER_INPUT,
     PROCESS_USER_INPUT,
-    RESERVE_TABLE,
     ADD_TABLE,
     GROUP_LEAVE,
     FREE_TABLE,
-    OCCUPY_TABLE,
-    ENQUE_GROUP,
     ADD_GROUP,
-    KILL_APP,
     PRINT,
-		PRINT_PAUSE,
+    PRINT_PAUSE,
     NEXT_TICK,
     MAKE_STATE_REPORT,
     STATE_REPORT_DONE
@@ -59,8 +55,7 @@ class Base {
 
   void emit(Signal signal_fn, Command cid, std::string payload);
   void add_connection(Signal signal_fn, Handler handler_fn, Base* target);
-  /* void remove_connection(Signal signal_fn, Handler handler_fn, Base* target);
-   */
+  void remove_connection(Signal signal_fn, Handler handler_fn, Base* target);
 };
 
 #endif  // INCLUDES_BASE_H_

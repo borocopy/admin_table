@@ -12,6 +12,7 @@ class IOInterface : public Base {
 
  public:
   explicit IOInterface(Base *app);
+	~IOInterface();
 
   void signal_fn(Base::Command cid, std::string &payload);
   void handler_fn(Base::Command cid, std::string payload);

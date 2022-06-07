@@ -67,6 +67,14 @@ void Base::add_connection(Signal signal_fn, Handler handler_fn, Base* target) {
   connections.push_back(connection);
 }
 
+void Base::remove_connection(Signal signal_fn, Handler handler_fn, Base* target) {
+	for (int i = 0; i < connections.size(); i++) {
+		if (connections[i]->signal_fn == signal_fn && connections[i]->target == target) {
+			connections.erase(connections.begin() + i);
+		}
+	}
+}
+
 void Base::emit(Base::Signal signal_fn, Base::Command cid,
                 std::string payload) {
   (this->*signal_fn)(cid, payload);
